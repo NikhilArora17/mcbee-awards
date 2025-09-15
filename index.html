@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Industry Recognition — Heading Box</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef3f8; --ink:#454E59; --muted:#7f8592; --rail:#C8CFDA;
+    --title:40px; --year:24px; --label:14px; --item:14px;
+    --dot:10px; --rail-w:2px;
+    --label-w:92px;
+    --gap:82px;
+    --row-gap:12px;
+    --section-gap:22px;
+    --col-w:560px;
+    --cols-gap:80px;
+
+    /* per-label defaults (override inline on each .lab) */
+    --lab-x: 0px;
+    --lab-y: 0px;
+    --lab-align: center;  /* start | center | end | stretch */
+  }
+
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,sans-serif}
+  .wrap{max-width:1600px;margin:0;padding:0;}
+
+  /* Heading */
+  .heading-box{padding:8px 16px;display:inline-block;margin-bottom:28px;}
+  h1{margin:0;font-size:var(--title);line-height:1.06;font-weight:300}
+  h1 .i{color:#B1B5C0;display:block}
+  h1 .r{color:#454E59;display:block}
+
+  /* Layout */
+  @media (min-width:1001px){
+    .timeline{
+      display:grid;
+      grid-template-columns:minmax(0,var(--col-w)) minmax(0,var(--col-w));
+      column-gap:var(--cols-gap);
+      align-items:start;
+      width:fit-content;
+      justify-content:start;
+      margin-left:0;
+    }
+  }
+  @media (max-width:1000px) and (min-width:751px){
+    :root{ --col-w:46vw; --cols-gap:48px; --gap:64px; }
+    .timeline{
+      display:grid;
+      grid-template-columns:minmax(0,var(--col-w)) minmax(0,var(--col-w));
+      column-gap:var(--cols-gap);
+      width:fit-content;
+      justify-content:start;
+      margin-left:0;
+    }
+  }
+  @media (max-width:750px){
+    .timeline{ display:block; width:100%; }
+    .col{ padding:0; }
+    .rail{ left:16px; transform:none; top:0; bottom:0; }
+    .yrgrid{ grid-template-columns: max-content 1fr; column-gap:16px; margin-left:32px; }
+    .dot{ left:-32px; }
+    .lab{text-align:right; white-space:nowrap;}
+  }
+
+  .col{position:relative}
+
+  .rail{
+    position:absolute;
+    left:calc(var(--label-w) + (var(--gap)/2) - (var(--rail-w)/2));
+    width:var(--rail-w);
+    background:var(--rail);
+    top:calc(var(--year) * 0.5 + var(--dot) / 2);
+    bottom:0;
+  }
+
+  .yrgrid{
+    display:grid;
+    grid-template-columns: var(--label-w) 1fr;
+    column-gap:var(--gap);
+    row-gap:var(--row-gap);
+    margin:0 0 var(--section-gap);
+    align-items:start;
+  }
+
+  /* DOT — positioned relative to the content box so it aligns with the year line */
+  .content.box{position:relative; overflow:visible;}
+  .dot{
+    position:absolute;
+    left:calc((var(--gap)/-2) - (var(--dot)/2));
+    top:calc(var(--year) * 0.58);
+    width:var(--dot);height:var(--dot);
+    background:#000;border-radius:50%;
+  }
+
+  /* ===== LABELS (LEFT SIDE) — individually controllable ===== */
+  .lab {
+    grid-column: 1;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    font-size: var(--label);
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    white-space: nowrap;
+    overflow: hidden;
+
+    /* per-label controls */
+    align-self: var(--lab-align);
+    transform: translate(var(--lab-x), var(--lab-y));
+    will-change: transform;
+  }
+
+  .lab__inner{display:inline-block;}
+  .clip{overflow:hidden;}
+  .content__inner{}
+  .year{margin:0 0 10px 0;font-size:var(--year);font-weight:300;line-height:1.1;text-align:left;}
+  .items{display:grid;row-gap:var(--row-gap);}
+  .it{font-size:var(--item);font-weight:300;line-height:1.5;margin:0;text-align:left;}
+
+  /* ===== SCROLL REVEAL ===== */
+  /* Initial hidden states (only when an ancestor or the node itself has [data-reveal]) */
+  [data-reveal] .content__inner,
+  [data-reveal] .lab__inner,
+  [data-reveal] .dot { opacity: 0; }
+
+  /* Rails are revealed independently (they carry [data-reveal="rail"]) */
+  [data-reveal="rail"] { opacity: 0; }
+
+  /* In-view animations */
+  [data-reveal].is-inview[data-reveal="left"] .content__inner { animation: slideLR .9s ease both; }
+  [data-reveal].is-inview[data-reveal="right"] .content__inner { animation: slideRL .9s ease both; }
+  [data-reveal].is-inview .lab__inner { animation: slideRL .9s ease both; }
+  [data-reveal].is-inview .dot { animation: fadeIn .9s ease both; }
+
+  /* Heading reveal (animate the box itself) */
+  .heading-box[data-reveal]{ opacity: 0; }
+  .heading-box.is-inview[data-reveal="left"]{ animation: slideLR .9s ease both; }
+
+  /* Rail reveal */
+  [data-reveal="rail"].is-inview { animation: fadeIn .9s ease both; }
+
+  /* Keyframes */
+  @keyframes slideLR { from{ transform:translateX(-100%); opacity:0; } to{ transform:translateX(0); opacity:1; } }
+  @keyframes slideRL { from{ transform:translateX(100%); opacity:0; } to{ transform:translateX(0); opacity:1; } }
+  @keyframes fadeIn { from{ opacity:0; } to{ opacity:1; } }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+    [data-reveal] .content__inner,
+    [data-reveal] .lab__inner,
+    [data-reveal] .dot,
+    [data-reveal="rail"],
+    .heading-box[data-reveal] { opacity: 1 !important; }
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="heading-box" data-reveal="left">
+      <h1><span class="i">INDUSTRY</span><span class="r">RECOGNITION</span></h1>
+    </div>
+
+    <section class="timeline">
+      <!-- LEFT COLUMN -->
+      <div class="col">
+        <div class="rail" data-reveal="rail"></div>
+
+        <section class="yrgrid" data-reveal="left">
+          <!-- Example: nudge this label 6px up and 4px left -->
+          <div class="lab" style="--lab-x:-4px; --lab-y:-6px; --lab-align:center">
+            <div class="lab__inner">CEDIA<br>AWARDS</div>
+          </div>
+          <div class="content box">
+            <span class="dot"></span>
+            <div class="clip">
+              <div class="content__inner">
+                <h3 class="year">2024</h3>
+                <div class="items">
+                  <div class="it">Best Integrated Home (Level III), EMEA – Winner</div>
+                  <div class="it">Excellence in Documenting, EMEA – Winner</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="yrgrid" data-reveal="left">
+          <div class="lab" style="--lab-x:0px; --lab-y:0px; --lab-align:center">
+            <div class="lab__inner">CEDIA<br>AWARDS</div>
+          </div>
+          <div class="content box">
+            <span class="dot"></span>
+            <div class="clip">
+              <div class="content__inner">
+                <h3 class="year">2023</h3>
+                <div class="items">
+                  <div class="it">Best Integrated Home, Ultra Luxury, EMEA – Winner</div>
+                  <div class="it">Technology Meets Design Global – Winner</div>
+                  <div class="it">Excellence in Lighting, EMEA – Winner</div>
+                  <div class="it">Excellence in Rack Building and Design, EMEA – Winner</div>
+                  <div class="it">Excellence in User Interface, EMEA – Winner</div>
+                  <div class="it">Excellence in Documentation, EMEA – Winner</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="yrgrid" data-reveal="left">
+          <div class="lab" style="--lab-x:0px; --lab-y:2px; --lab-align:center">
+            <div class="lab__inner">CEDIA<br>AWARDS</div>
+          </div>
+          <div class="content box">
+            <span class="dot"></span>
+            <div class="clip">
+              <div class="content__inner">
+                <h3 class="year">2022</h3>
+                <div class="items">
+                  <div class="it">Best Multi Dwelling Unit – Winner</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="yrgrid" data-reveal="left">
+          <div class="lab" style="--lab-x:-6px; --lab-y:0px; --lab-align:center">
+            <div class="lab__inner">CEDIA<br>AWARDS</div>
+          </div>
+          <div class="content box">
+            <span class="dot"></span>
+            <div class="clip">
+              <div class="content__inner">
+                <h3 class="year">2021</h3>
+                <div class="items">
+                  <div class="it">Best Home Cinema (Level III) – Winner</div>
+                  <div class="it">Best Home Cinema GLOBAL – Winner</div>
+                  <div class="it">Best Dressed Rack – Winner</div>
+                  <div class="it">Best Documentation – Winner</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="lab" style="--lab-x:-2px; --lab-y:-4px;">
+            <div class="lab__inner">CE PRO<br>AWARDS</div>
+          </div>
+          <div class="content box"><div class="clip"><div class="content__inner"><div class="items"><div class="it">Best Home Cinema – GOLD</div></div></div></div></div>
+
+          <div class="lab" style="--lab-x:4px; --lab-y:2px;">
+            <div class="lab__inner">CES<br>AWARDS</div>
+          </div>
+          <div class="content box"><div class="clip"><div class="content__inner"><div class="items"><div class="it">CES — MARK OF EXCELLENCE Best Home Cinema – Winner</div></div></div></div></div>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="col">
+        <div class="rail" data-reveal="rail"></div>
+
+        <section class="yrgrid" data-reveal="right">
+          <div class="lab" style="--lab-x:0px; --lab-y:0px;">
+            <div class="lab__inner">CEDIA<br>AWARDS</div>
+          </div>
+          <div class="content box">
+            <span class="dot"></span>
+            <div class="clip">
+              <div class="content__inner">
+                <h3 class="year">2020</h3>
+                <div class="items"><div class="it">Best Home Cinema (Level I) – Winner</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lab" style="--lab-x:0px; --lab-y:-2px;">
+            <div class="lab__inner">CES<br>AWARDS</div>
+          </div>
+          <div class="content box"><div class="clip"><div class="content__inner"><div class="items"><div class="it">CES — MARK OF EXCELLENCE Best Home Cinema – Winner</div></div></div></div></div>
+        </section>
+
+        <section class="yrgrid" data-reveal="right">
+          <div class="lab" style="--lab-x:-6px; --lab-y:0px;">
+            <div class="lab__inner">CEDIA<br>AWARDS</div>
+          </div>
+          <div class="content box">
+            <span class="dot"></span>
+            <div class="clip">
+              <div class="content__inner">
+                <h3 class="year">2019</h3>
+                <div class="items">
+                  <div class="it">Best Home Cinema (Level III) – Winner</div>
+                  <div class="it">Best Home Cinema GLOBAL – Winner</div>
+                  <div class="it">Best Dressed Rack – Winner</div>
+                  <div class="it">Best Documentation – Winner</div>
+                  <div class="it">Best Home Cinema (Lvl 2) – Bronze</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="yrgrid" data-reveal="right">
+          <div class="lab" style="--lab-x:0px; --lab-y:0px;">
+            <div class="lab__inner">CEDIA<br>AWARDS</div>
+          </div>
+          <div class="content box">
+            <span class="dot"></span>
+            <div class="clip">
+              <div class="content__inner">
+                <h3 class="year">2018</h3>
+                <div class="items">
+                  <div class="it">Best Home Cinema (Level I) – Winner</div>
+                  <div class="it">Best Home Cinema GLOBAL – Winner</div>
+                  <div class="it">Best Documentation (Highly Commended)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="yrgrid" data-reveal="right">
+          <div class="lab" style="--lab-x:0px; --lab-y:0px;">
+            <div class="lab__inner">CEDIA<br>AWARDS</div>
+          </div>
+          <div class="content box">
+            <span class="dot"></span>
+            <div class="clip">
+              <div class="content__inner">
+                <h3 class="year">2016</h3>
+                <div class="items"><div class="it">Best Media Room (Lvl 1) – Winner</div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="yrgrid" data-reveal="right">
+          <div class="lab" style="--lab-x:-3px; --lab-y:0px;">
+            <div class="lab__inner">CEDIA<br>AWARDS</div>
+          </div>
+          <div class="content box">
+            <span class="dot"></span>
+            <div class="clip">
+              <div class="content__inner">
+                <h3 class="year">2015</h3>
+                <div class="items"><div class="it">Best Home Cinema (Level III) – Winner</div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <!-- Scroll-reveal JS -->
+  <script>
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('is-inview');
+          // Remove this next line if you want animations to replay on every re-entry:
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
+
+    // Observe all reveal targets: heading, rows, and rails
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>
