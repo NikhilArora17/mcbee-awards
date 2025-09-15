@@ -67,15 +67,7 @@
     }
   }
   @media (max-width:1000px) and (min-width:751px){
-    :root{
-      --col-w:46vw; --cols-gap:48px; --gap:64px;
-
-      /* TABLET font specs (you asked: heading 24px, text 10px, label 10px) */
-      --title: 24px;
-      --year: 10px;
-      --label: 10px;
-      --item: 10px;
-    }
+    :root{ --col-w:46vw; --cols-gap:48px; --gap:64px; }
     .timeline{
       display:grid;
       grid-template-columns:minmax(0,var(--col-w)) minmax(0,var(--col-w));
@@ -86,14 +78,6 @@
     }
   }
   @media (max-width:750px){
-    /* MOBILE font specs (you asked: heading 24px, text 12px, label 12px) */
-    :root{
-      --title: 24px;
-      --year: 12px;
-      --label: 12px;
-      --item: 12px;
-    }
-
     .timeline{ display:block; width:100%; }
     .col{ padding:0; }
     .rail{ left:16px; transform:none; top:0; bottom:0; }
@@ -101,36 +85,6 @@
     .dot{ left:-32px; }
     .lab{text-align:left; white-space:nowrap;}
   }
-
-  /* MONITOR / 4K font specs (you asked: heading 107px, text 37px, label 37px) */
-  /* MONITOR / 4K (≥ 1920px) — scale type + spacing + box widths */
-@media (min-width:1920px){
-  :root{
-    /* Type (as requested) */
-    --title: 107px;
-    --year: 37px;
-    --label: 37px;
-    --item: 37px;
-
-    /* Spacing + geometry */
-    --label-w: 220px;   /* wider label column so text doesn’t break awkwardly */
-    --gap: 140px;       /* label ↔ awards gap (moves the rail too) */
-    --row-gap: 24px;    /* between awards */
-    --section-gap: 40px;/* between year sections */
-
-    /* Column sizing */
-    --col-w: 760px;     /* each timeline column wider */
-    --cols-gap: 400px;  /* gap between the two columns */
-
-    /* Content box width (awards box) */
-    --content-max: 520px;
-
-    /* Rail + dot scale */
-    --rail-w: 3px;
-    --dot: 16px;
-  }
-}
-
 
   .col{position:relative}
 
@@ -205,6 +159,96 @@
   @keyframes slideLR { from{ transform:translateX(-100%); opacity:0; } to{ transform:translateX(0); opacity:1; } }
   @keyframes slideRL { from{ transform:translateX(100%); opacity:0; } to{ transform:translateX(0); opacity:1; } }
   @keyframes fadeIn { from{ opacity:0; } to{ opacity:1; } }
+  /* ===== RESPONSIVE FIX: solid variables + box/spacing scaling ===== */
+
+/* Mobile (≤750px) */
+@media (max-width:750px){
+  :root{
+    /* your requested type sizes */
+    --title: 24px;
+    --year: 12px;
+    --label: 12px;
+    --item: 12px;
+
+    /* make boxes breathe on small screens */
+    --label-w: 84px;
+    --gap: 48px;
+    --row-gap: 12px;
+    --section-gap: 20px;
+    --content-max: 100%;
+    --rail-w: 2px;
+    --dot: 10px;
+  }
+  .timeline{
+    width: 100%;           /* avoid overflow in builders like Wix */
+    max-width: 100%;
+  }
+}
+
+/* Tablet (751–1000px) */
+@media (min-width:751px) and (max-width:1000px){
+  :root{
+    /* your requested type sizes */
+    --title: 24px;
+    --year: 10px;
+    --label: 10px;
+    --item: 10px;
+
+    /* scale spacing/boxes so it doesn't feel cramped */
+    --label-w: 96px;
+    --gap: 64px;
+    --row-gap: 12px;
+    --section-gap: 22px;
+
+    /* keep two columns but cap width so it fits containers */
+    --col-w: min(46vw, 560px);
+    --cols-gap: 48px;
+
+    /* a bit wider so award lines don’t wrap awkwardly */
+    --content-max: 320px;
+    --rail-w: 2px;
+    --dot: 12px;
+  }
+  .timeline{
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Desktop (1001–1919px): keep your existing defaults (no changes) */
+
+/* Monitor / 4K (≥1920px) — scale type + spacing + box widths */
+@media (min-width:1920px){
+  :root{
+    /* your requested type sizes */
+    --title: 107px;
+    --year: 37px;
+    --label: 37px;
+    --item: 37px;
+
+    /* scale geometry with type */
+    --label-w: 220px;
+    --gap: 140px;
+    --row-gap: 24px;
+    --section-gap: 40px;
+
+    /* wider columns + inter-column gap */
+    --col-w: 760px;
+    --cols-gap: 160px;
+
+    /* wider award content box */
+    --content-max: 520px;
+
+    /* thicker rail + bigger dot for visual balance */
+    --rail-w: 3px;
+    --dot: 16px;
+  }
+  .timeline{
+    width: fit-content;    /* keep your original look on big screens */
+    max-width: none;
+  }
+}
+
 </style>
 </head>
 <body>
