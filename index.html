@@ -3,19 +3,17 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Industry Recognition — Heading Box</title>
+<title>Industry Recognition — Desktop / 4K</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#ffffff; --ink:#454E59; --muted:#7f8592; --rail:#C8CFDA;
 
-    /* Type scales (keep your originals) */
     --title: clamp(32px, 2.2vw, 72px);
     --year:  clamp(22px, 0.9vw, 36px);
     --label: clamp(12px, 0.50vw, 18px);
     --item:  clamp(14px, 0.55vw, 20px);
 
-    /* Geometry */
     --dot:   clamp(8px, 0.35vw, 12px);
     --rail-w:2px;
     --label-w:92px;
@@ -23,33 +21,27 @@
     --row-gap:12px;
     --section-gap:22px;
 
-    /* Fluid columns: never overflow Wix container */
     --cols-gap:80px;
     --col-w: clamp(420px, calc((100vw - var(--cols-gap) - 48px)/2), 560px);
-
-    /* Award text max width */
     --content-max: clamp(320px, 32vw, 560px);
 
-    /* Label micro nudges (if needed) */
     --lab-x: 0px;
     --lab-y: 0px;
   }
 
   html,body{
-    margin:0; background:var(--bg); color:var(--ink); font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
   }
 
-  /* WRAPPER */
   .wrap{ max-width:unset; margin:0; padding:24px 24px 40px; }
 
-  /* HEADING */
   .heading-box{ display:block; margin:0 0 48px 0; padding:0; }
-  h1{ margin:0; padding:0; font-size:var(--title); line-height:1; font-weight:300; text-align:left; letter-spacing:-.01em; }
+  h1{ margin:0; padding:0; font-size:var(--title); line-height:1; font-weight:300; text-align:left; }
   h1 .i{ color:#B1B5C0; display:block }
   h1 .r{ color:#454E59; display:block }
 
-  /* TIMELINE GRID — always respect container width (prevents Wix scaling) */
   .timeline{
     width:100%;
     max-width:100%;
@@ -59,26 +51,6 @@
     align-items:start;
     justify-content:start;
     margin-left:0;
-  }
-
-  /* TABLET (keep 2 columns but fluid) */
-  @media (max-width:1000px) and (min-width:751px){
-    :root{
-      --col-w: clamp(320px, calc((100vw - var(--cols-gap) - 40px)/2), 560px);
-      --cols-gap:48px;
-      --gap:64px;
-      --content-max: clamp(300px, 40vw, 480px);
-    }
-  }
-
-  /* MOBILE (single column) */
-  @media (max-width:750px){
-    .timeline{ display:block; width:100%; }
-    .col{ padding:0; }
-    .rail{ left:16px; transform:none; top:0; bottom:0; }
-    .yrgrid{ grid-template-columns: max-content 1fr; column-gap:16px; margin-left:32px; }
-    .dot{ left:-32px; }
-    .lab{ text-align:left; white-space:nowrap; }
   }
 
   .col{ position:relative }
@@ -113,10 +85,8 @@
     position:absolute;
     left:calc((var(--gap)/-2) - (var(--dot)/2));
     top:calc(var(--year) * 0.58);
-    width:var(--dot);
-    height:var(--dot);
-    background:#000;
-    border-radius:50%;
+    width:var(--dot);height:var(--dot);
+    background:#000;border-radius:50%;
   }
 
   .lab{
@@ -137,64 +107,26 @@
   .lab--spacer{ visibility:hidden; }
 
   .clip{ overflow:hidden; }
-  .year{
-    margin:0 0 10px 0;
-    font-size:var(--year);
-    font-weight:300;
-    line-height:1.1;
-    text-align:left;
-    letter-spacing:.02em;
-  }
+  .year{ margin:0 0 10px 0;font-size:var(--year);font-weight:300;line-height:1.1;text-align:left; }
   .items{ display:grid; row-gap:var(--row-gap); }
-  .it{
-    font-size:var(--item);
-    font-weight:300;
-    line-height:1.5;
-    margin:0;
-    text-align:left;
-    letter-spacing:.01em;
-  }
+  .it{ font-size:var(--item); font-weight:300; line-height:1.5; margin:0; text-align:left; }
 
-  /* SCROLL REVEAL */
   [data-reveal] .content__inner,
   [data-reveal] .lab__inner,
   [data-reveal] .dot { opacity: 0; }
   [data-reveal="rail"] { opacity: 0; }
-
   [data-reveal].is-inview[data-reveal="left"] .content__inner { animation: slideLR .9s ease both; }
   [data-reveal].is-inview[data-reveal="right"] .content__inner { animation: slideRL .9s ease both; }
   [data-reveal].is-inview .lab__inner { animation: slideRL .9s ease both; }
   [data-reveal].is-inview .dot { animation: fadeIn .9s ease both; }
-
   .heading-box[data-reveal]{ opacity: 0; }
   .heading-box.is-inview[data-reveal="left"]{ animation: slideLR .9s ease both; }
-
   [data-reveal="rail"].is-inview { animation: fadeIn .9s ease both; }
 
   @keyframes slideLR { from{ transform:translateX(-100%); opacity:0; } to{ transform:translateX(0); opacity:1; } }
   @keyframes slideRL { from{ transform:translateX(100%); opacity:0; } to{ transform:translateX(0); opacity:1; } }
   @keyframes fadeIn { from{ opacity:0; } to{ opacity:1; } }
 
-  /* MOBILE hard overrides (≤750px) */
-  @media (max-width:750px){
-    :root{
-      --title:24px;
-      --year:12px;
-      --label:12px;
-      --item:12px;
-
-      --label-w:84px;
-      --gap:48px;
-      --row-gap:12px;
-      --section-gap:20px;
-      --content-max:100%;
-      --rail-w:2px;
-      --dot:10px;
-    }
-    .wrap{ padding:20px 16px 32px; }
-  }
-
-  /* 4K / Monitor scaling (≥1920px) */
   @media (min-width:1920px){
     :root{
       --title:107px;
@@ -220,225 +152,129 @@
 </head>
 <body>
   <main class="wrap">
-    <!-- Heading -->
     <div class="heading-box" data-reveal="left">
-      <h1>
-        <span class="i">INDUSTRY</span>
-        <span class="r">RECOGNITION</span>
-      </h1>
+      <h1><span class="i">INDUSTRY</span><span class="r">RECOGNITION</span></h1>
     </div>
 
-    <!-- Timeline -->
     <section class="timeline">
-      <!-- LEFT COLUMN -->
       <div class="col">
         <div class="rail" data-reveal="rail"></div>
 
+        <!-- FULL LEFT COLUMN CONTENT -->
         <!-- 2024 -->
         <section class="yrgrid" data-reveal="left">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
-          <div class="content box">
-            <span class="dot"></span>
-            <div class="clip"><div class="content__inner"><h3 class="year">2024</h3></div></div>
-          </div>
+          <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2024</h3></div></div></div>
           <div class="lab"><div class="lab__inner">CEDIA<br>AWARDS</div></div>
-          <div class="content box">
-            <div class="clip"><div class="content__inner">
-              <div class="items">
-                <p class="it">Best Integrated Home (Level III), EMEA – Winner</p>
-                <p class="it">Excellence in Documenting, EMEA – Winner</p>
-              </div>
-            </div></div>
-          </div>
+          <div class="content box"><div class="clip"><div class="content__inner"><div class="items">
+            <div class="it">Best Integrated Home (Level III), EMEA – Winner</div>
+            <div class="it">Excellence in Documenting, EMEA – Winner</div>
+          </div></div></div></div>
         </section>
 
         <!-- 2023 -->
         <section class="yrgrid" data-reveal="left">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
-          <div class="content box">
-            <span class="dot"></span>
-            <div class="clip"><div class="content__inner"><h3 class="year">2023</h3></div></div>
-          </div>
+          <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2023</h3></div></div></div>
           <div class="lab"><div class="lab__inner">CEDIA<br>AWARDS</div></div>
-          <div class="content box">
-            <div class="clip"><div class="content__inner">
-              <div class="items">
-                <p class="it">Best Integrated Home, Ultra Luxury, EMEA – Winner</p>
-                <p class="it">Technology Meets Design Global – Winner</p>
-                <p class="it">Excellence in Lighting, EMEA – Winner</p>
-                <p class="it">Excellence in Rack Building and Design, EMEA – Winner</p>
-                <p class="it">Excellence in User Interface, EMEA – Winner</p>
-                <p class="it">Excellence in Documentation, EMEA – Winner</p>
-              </div>
-            </div></div>
-          </div>
+          <div class="content box"><div class="clip"><div class="content__inner"><div class="items">
+            <div class="it">Best Integrated Home, Ultra Luxury, EMEA – Winner</div>
+            <div class="it">Technology Meets Design Global – Winner</div>
+            <div class="it">Excellence in Lighting, EMEA – Winner</div>
+            <div class="it">Excellence in Rack Building and Design, EMEA – Winner</div>
+            <div class="it">Excellence in User Interface, EMEA – Winner</div>
+            <div class="it">Excellence in Documentation, EMEA – Winner</div>
+          </div></div></div></div>
         </section>
 
         <!-- 2022 -->
         <section class="yrgrid" data-reveal="left">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
-          <div class="content box">
-            <span class="dot"></span>
-            <div class="clip"><div class="content__inner"><h3 class="year">2022</h3></div></div>
-          </div>
+          <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2022</h3></div></div></div>
           <div class="lab"><div class="lab__inner">CEDIA<br>AWARDS</div></div>
-          <div class="content box">
-            <div class="clip"><div class="content__inner">
-              <div class="items">
-                <p class="it">Best Multi Dwelling Unit – Winner</p>
-              </div>
-            </div></div>
-          </div>
+          <div class="content box"><div class="clip"><div class="content__inner"><div class="items">
+            <div class="it">Best Multi Dwelling Unit – Winner</div>
+          </div></div></div></div>
         </section>
 
         <!-- 2021 -->
         <section class="yrgrid" data-reveal="left">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
-          <div class="content box">
-            <span class="dot"></span>
-            <div class="clip"><div class="content__inner"><h3 class="year">2021</h3></div></div>
-          </div>
-
+          <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2021</h3></div></div></div>
           <div class="lab"><div class="lab__inner">CEDIA<br>AWARDS</div></div>
-          <div class="content box">
-            <div class="clip"><div class="content__inner">
-              <div class="items">
-                <p class="it">Best Home Cinema (Level III) – Winner</p>
-                <p class="it">Best Home Cinema GLOBAL – Winner</p>
-                <p class="it">Best Dressed Rack – Winner</p>
-                <p class="it">Best Documentation – Winner</p>
-              </div>
-            </div></div>
-          </div>
-
+          <div class="content box"><div class="clip"><div class="content__inner"><div class="items">
+            <div class="it">Best Home Cinema (Level III) – Winner</div>
+            <div class="it">Best Home Cinema GLOBAL – Winner</div>
+            <div class="it">Best Dressed Rack – Winner</div>
+            <div class="it">Best Documentation – Winner</div>
+          </div></div></div></div>
           <div class="lab"><div class="lab__inner">CE PRO<br>AWARDS</div></div>
-          <div class="content box">
-            <div class="clip"><div class="content__inner">
-              <div class="items">
-                <p class="it">Best Home Cinema – GOLD</p>
-              </div>
-            </div></div>
-          </div>
-
+          <div class="content box"><div class="clip"><div class="content__inner"><div class="items"><div class="it">Best Home Cinema – GOLD</div></div></div></div></div>
           <div class="lab"><div class="lab__inner">CES<br>AWARDS</div></div>
-          <div class="content box">
-            <div class="clip"><div class="content__inner">
-              <div class="items">
-                <p class="it">CES — MARK OF EXCELLENCE Best Home Cinema – Winner</p>
-              </div>
-            </div></div>
-          </div>
+          <div class="content box"><div class="clip"><div class="content__inner"><div class="items"><div class="it">CES — MARK OF EXCELLENCE Best Home Cinema – Winner</div></div></div></div></div>
         </section>
       </div>
 
-      <!-- RIGHT COLUMN -->
+      <!-- FULL RIGHT COLUMN CONTENT -->
       <div class="col">
         <div class="rail" data-reveal="rail"></div>
 
         <!-- 2020 -->
         <section class="yrgrid" data-reveal="right">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
-          <div class="content box">
-            <span class="dot"></span>
-            <div class="clip"><div class="content__inner"><h3 class="year">2020</h3></div></div>
-          </div>
+          <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2020</h3></div></div></div>
           <div class="lab"><div class="lab__inner">CEDIA<br>AWARDS</div></div>
-          <div class="content box">
-            <div class="clip"><div class="content__inner">
-              <div class="items">
-                <p class="it">Best Home Cinema (Level I) – Winner</p>
-              </div>
-            </div></div>
-          </div>
+          <div class="content box"><div class="clip"><div class="content__inner"><div class="items"><div class="it">Best Home Cinema (Level I) – Winner</div></div></div></div></div>
           <div class="lab"><div class="lab__inner">CES<br>AWARDS</div></div>
-          <div class="content box">
-            <div class="clip"><div class="content__inner">
-              <div class="items">
-                <p class="it">CES — MARK OF EXCELLENCE Best Home Cinema – Winner</p>
-              </div>
-            </div></div>
-          </div>
+          <div class="content box"><div class="clip"><div class="content__inner"><div class="items"><div class="it">CES — MARK OF EXCELLENCE Best Home Cinema – Winner</div></div></div></div></div>
         </section>
 
         <!-- 2019 -->
         <section class="yrgrid" data-reveal="right">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
-          <div class="content box">
-            <span class="dot"></span>
-            <div class="clip"><div class="content__inner"><h3 class="year">2019</h3></div></div>
-          </div>
+          <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2019</h3></div></div></div>
           <div class="lab"><div class="lab__inner">CEDIA<br>AWARDS</div></div>
-          <div class="content box">
-            <div class="clip"><div class="content__inner">
-              <div class="items">
-                <p class="it">Best Home Cinema (Level III) – Winner</p>
-                <p class="it">Best Home Cinema GLOBAL – Winner</p>
-                <p class="it">Best Dressed Rack – Winner</p>
-                <p class="it">Best Documentation – Winner</p>
-                <p class="it">Best Home Cinema (Lvl 2) – Bronze</p>
-              </div>
-            </div></div>
-          </div>
+          <div class="content box"><div class="clip"><div class="content__inner"><div class="items">
+            <div class="it">Best Home Cinema (Level III) – Winner</div>
+            <div class="it">Best Home Cinema GLOBAL – Winner</div>
+            <div class="it">Best Dressed Rack – Winner</div>
+            <div class="it">Best Documentation – Winner</div>
+            <div class="it">Best Home Cinema (Lvl 2) – Bronze</div>
+          </div></div></div></div>
         </section>
 
         <!-- 2018 -->
         <section class="yrgrid" data-reveal="right">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
-          <div class="content box">
-            <span class="dot"></span>
-            <div class="clip"><div class="content__inner"><h3 class="year">2018</h3></div></div>
-          </div>
+          <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2018</h3></div></div></div>
           <div class="lab"><div class="lab__inner">CEDIA<br>AWARDS</div></div>
-          <div class="content box">
-            <div class="clip"><div class="content__inner">
-              <div class="items">
-                <p class="it">Best Home Cinema (Level I) – Winner</p>
-                <p class="it">Best Home Cinema GLOBAL – Winner</p>
-                <p class="it">Best Documentation (Highly Commended)</p>
-              </div>
-            </div></div>
-          </div>
+          <div class="content box"><div class="clip"><div class="content__inner"><div class="items">
+            <div class="it">Best Home Cinema (Level I) – Winner</div>
+            <div class="it">Best Home Cinema GLOBAL – Winner</div>
+            <div class="it">Best Documentation (Highly Commended)</div>
+          </div></div></div></div>
         </section>
 
         <!-- 2016 -->
         <section class="yrgrid" data-reveal="right">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
-          <div class="content box">
-            <span class="dot"></span>
-            <div class="clip"><div class="content__inner"><h3 class="year">2016</h3></div></div>
-          </div>
+          <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2016</h3></div></div></div>
           <div class="lab"><div class="lab__inner">CEDIA<br>AWARDS</div></div>
-          <div class="content box">
-            <div class="clip"><div class="content__inner">
-              <div class="items">
-                <p class="it">Best Media Room (Lvl 1) – Winner</p>
-              </div>
-            </div></div>
-          </div>
+          <div class="content box"><div class="clip"><div class="content__inner"><div class="items"><div class="it">Best Media Room (Lvl 1) – Winner</div></div></div></div></div>
         </section>
 
         <!-- 2015 -->
         <section class="yrgrid" data-reveal="right">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
-          <div class="content box">
-            <span class="dot"></span>
-            <div class="clip"><div class="content__inner"><h3 class="year">2015</h3></div></div>
-          </div>
+          <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2015</h3></div></div></div>
           <div class="lab"><div class="lab__inner">CEDIA<br>AWARDS</div></div>
-          <div class="content box">
-            <div class="clip"><div class="content__inner">
-              <div class="items">
-                <p class="it">Best Home Cinema (Level III) – Winner</p>
-              </div>
-            </div></div>
-          </div>
+          <div class="content box"><div class="clip"><div class="content__inner"><div class="items"><div class="it">Best Home Cinema (Level III) – Winner</div></div></div></div></div>
         </section>
       </div>
     </section>
   </main>
 
   <script>
-    /* Simple intersection observer for reveal animations */
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
         if(e.isIntersecting){
