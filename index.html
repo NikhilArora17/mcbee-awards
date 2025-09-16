@@ -21,9 +21,10 @@
     --row-gap:12px;
     --section-gap:22px;
 
+    /* FIXED column width + gap for perfect left alignment */
     --cols-gap:80px;
-    --col-w: clamp(420px, calc((100vw - var(--cols-gap) - 48px)/2), 560px);
-    --content-max: clamp(320px, 32vw, 560px);
+    --col-w: 560px;
+    --content-max: 560px;
 
     --lab-x: 0px;
     --lab-y: 0px;
@@ -35,7 +36,7 @@
     -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
   }
 
-  .wrap{ max-width:unset; margin:0; padding:24px 24px 40px; }
+  .wrap{ max-width:unset; margin:0; padding:24px 0 40px 0; }
 
   .heading-box{ display:block; margin:0 0 48px 0; padding:0; }
   h1{ margin:0; padding:0; font-size:var(--title); line-height:1; font-weight:300; text-align:left; }
@@ -46,11 +47,11 @@
     width:100%;
     max-width:100%;
     display:grid;
-    grid-template-columns:minmax(0,var(--col-w)) minmax(0,var(--col-w));
+    grid-template-columns: var(--col-w) var(--col-w);
     column-gap:var(--cols-gap);
     align-items:start;
     justify-content:start;
-    margin-left:0;
+    margin:0;
   }
 
   .col{ position:relative }
@@ -127,26 +128,27 @@
   @keyframes slideRL { from{ transform:translateX(100%); opacity:0; } to{ transform:translateX(0); opacity:1; } }
   @keyframes fadeIn { from{ opacity:0; } to{ opacity:1; } }
 
-@media (min-width:1920px){
-  :root{
-    --title: clamp(48px, 2.5vw, 88px); /* softer cap, closer to Wix */
-    --year:  clamp(18px, 1.0vw, 28px);
-    --label: clamp(12px, 1.0vw, 20px);
-    --item:  clamp(14px, 1.1vw, 22px);
+  @media (min-width:1920px){
+    :root{
+      --title: clamp(48px, 2.7vw, 104px);
+      --year:  clamp(18px, 1.2vw, 32px);
+      --label: clamp(12px, 1.0vw, 22px);
+      --item:  clamp(14px, 1.1vw, 24px);
 
-    --label-w:200px;
-    --gap:120px;
-    --row-gap:20px;
-    --section-gap:32px;
+      --label-w:200px;
+      --gap:128px;
+      --row-gap:22px;
+      --section-gap:36px;
 
-    --col-w:680px;
-    --cols-gap:120px;
-    --content-max:520px;
-    --rail-w:2px;
-    --dot:14px;
+      --col-w:700px;
+      --cols-gap:140px;
+      --content-max:520px;
+
+      --rail-w:2px;
+      --dot:14px;
+    }
+    .wrap{ padding:44px 0 68px 0; }
   }
-}
-
 </style>
 </head>
 <body>
@@ -159,8 +161,7 @@
       <div class="col">
         <div class="rail" data-reveal="rail"></div>
 
-        <!-- FULL LEFT COLUMN CONTENT -->
-        <!-- 2024 -->
+        <!-- Left column awards -->
         <section class="yrgrid" data-reveal="left">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
           <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2024</h3></div></div></div>
@@ -171,7 +172,6 @@
           </div></div></div></div>
         </section>
 
-        <!-- 2023 -->
         <section class="yrgrid" data-reveal="left">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
           <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2023</h3></div></div></div>
@@ -186,7 +186,6 @@
           </div></div></div></div>
         </section>
 
-        <!-- 2022 -->
         <section class="yrgrid" data-reveal="left">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
           <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2022</h3></div></div></div>
@@ -196,7 +195,6 @@
           </div></div></div></div>
         </section>
 
-        <!-- 2021 -->
         <section class="yrgrid" data-reveal="left">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
           <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2021</h3></div></div></div>
@@ -214,11 +212,10 @@
         </section>
       </div>
 
-      <!-- FULL RIGHT COLUMN CONTENT -->
       <div class="col">
         <div class="rail" data-reveal="rail"></div>
 
-        <!-- 2020 -->
+        <!-- Right column awards -->
         <section class="yrgrid" data-reveal="right">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
           <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2020</h3></div></div></div>
@@ -228,7 +225,6 @@
           <div class="content box"><div class="clip"><div class="content__inner"><div class="items"><div class="it">CES — MARK OF EXCELLENCE Best Home Cinema – Winner</div></div></div></div></div>
         </section>
 
-        <!-- 2019 -->
         <section class="yrgrid" data-reveal="right">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
           <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2019</h3></div></div></div>
@@ -242,7 +238,6 @@
           </div></div></div></div>
         </section>
 
-        <!-- 2018 -->
         <section class="yrgrid" data-reveal="right">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
           <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2018</h3></div></div></div>
@@ -254,7 +249,6 @@
           </div></div></div></div>
         </section>
 
-        <!-- 2016 -->
         <section class="yrgrid" data-reveal="right">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
           <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2016</h3></div></div></div>
@@ -262,7 +256,6 @@
           <div class="content box"><div class="clip"><div class="content__inner"><div class="items"><div class="it">Best Media Room (Lvl 1) – Winner</div></div></div></div></div>
         </section>
 
-        <!-- 2015 -->
         <section class="yrgrid" data-reveal="right">
           <div class="lab lab--spacer"><div class="lab__inner">.</div></div>
           <div class="content box"><span class="dot"></span><div class="clip"><div class="content__inner"><h3 class="year">2015</h3></div></div></div>
