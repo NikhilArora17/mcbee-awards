@@ -127,27 +127,26 @@
   @keyframes slideRL { from{ transform:translateX(100%); opacity:0; } to{ transform:translateX(0); opacity:1; } }
   @keyframes fadeIn { from{ opacity:0; } to{ opacity:1; } }
 
-  @media (min-width:1920px){
-    :root{
-      --title:107px;
-      --year:37px;
-      --label:37px;
-      --item:37px;
+@media (min-width:1920px){
+  :root{
+    --title: clamp(48px, 2.5vw, 88px); /* softer cap, closer to Wix */
+    --year:  clamp(18px, 1.0vw, 28px);
+    --label: clamp(12px, 1.0vw, 20px);
+    --item:  clamp(14px, 1.1vw, 22px);
 
-      --label-w:220px;
-      --gap:140px;
-      --row-gap:24px;
-      --section-gap:40px;
+    --label-w:200px;
+    --gap:120px;
+    --row-gap:20px;
+    --section-gap:32px;
 
-      --col-w:760px;
-      --cols-gap:160px;
-      --content-max:520px;
-
-      --rail-w:3px;
-      --dot:16px;
-    }
-    .wrap{ padding:48px 60px 72px; }
+    --col-w:680px;
+    --cols-gap:120px;
+    --content-max:520px;
+    --rail-w:2px;
+    --dot:14px;
   }
+}
+
 </style>
 </head>
 <body>
