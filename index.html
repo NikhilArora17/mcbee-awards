@@ -9,7 +9,6 @@
   :root{
     --bg:#ffffff; --ink:#454E59; --muted:#7f8592; --rail:#C8CFDA;
 
-    /* Desktop sizes (fit ≈1000px total) */
     --title: clamp(32px, 2.2vw, 72px);
     --year:  clamp(22px, 0.9vw, 36px);
     --label: clamp(12px, 0.50vw, 18px);
@@ -22,8 +21,9 @@
     --row-gap:12px;
     --section-gap:22px;
 
-    --cols-gap:80px;   /* desktop gap */
-    --col-w: 460px;    /* 460 + 460 + 80 = 1000px */
+    /* FIXED column width + gap for perfect left alignment */
+    --cols-gap:80px;
+    --col-w: 560px;
     --content-max: 560px;
 
     --lab-x: 0px;
@@ -128,7 +128,6 @@
   @keyframes slideRL { from{ transform:translateX(100%); opacity:0; } to{ transform:translateX(0); opacity:1; } }
   @keyframes fadeIn { from{ opacity:0; } to{ opacity:1; } }
 
-  /* 4K+ — flexible columns & gaps so it doesn't break in non-full-width windows */
   @media (min-width:1920px){
     :root{
       --title: clamp(48px, 2.7vw, 104px);
@@ -141,10 +140,9 @@
       --row-gap:22px;
       --section-gap:36px;
 
-      /* FLEX instead of hard 700/400 to survive smaller 4K windows/iframes */
-      --col-w: clamp(560px, 32vw, 700px);
-      --cols-gap: clamp(160px, 10vw, 360px);
-      --content-max: var(--col-w);
+      --col-w:700px;
+      --cols-gap:140px;
+      --content-max:520px;
 
       --rail-w:2px;
       --dot:14px;
